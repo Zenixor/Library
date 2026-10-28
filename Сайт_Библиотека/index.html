@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Полка — поиск книг и переход в магазин</title>
+  <meta name="description" content="Найди книгу и сразу узнай, где её взять: описание, содержание по главам и ссылки на магазины.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header" id="site-header"></header>
+
+  <main>
+    <section class="hero container">
+      <p class="eyebrow">Поиск книг на русском, English и қазақша</p>
+      <h1>Найди книгу — и сразу узнай, где её взять</h1>
+      <p class="hero-lead">Описание, содержание по главам и ссылки на магазины. Сами книги мы не продаём — только ведём к легальным источникам.</p>
+      <form class="search-box search-box--hero" action="search.html" role="search">
+        <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+        <input type="search" name="q" placeholder="Название, автор или о чём книга" aria-label="Поиск книг" autocomplete="off" required>
+        <button class="btn btn-blue" type="submit">Найти</button>
+      </form>
+      <div class="examples">
+        <span>Например:</span>
+        <a class="chip" href="search.html?q=Чистый+код">Чистый код</a>
+        <a class="chip" href="search.html?q=книга+про+алгоритмы">книга про алгоритмы</a>
+        <a class="chip" href="search.html?q=Стругацкие">Стругацкие</a>
+        <a class="chip" href="search.html?q=что+почитать+за+вечер">что почитать за вечер</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <nav class="genres" id="genres" aria-label="Жанры"></nav>
+
+      <section class="section">
+        <div class="section-head"><h2 class="section-title">Для программистов</h2><a class="see-all" href="search.html?col=prog">Смотреть все →</a></div>
+        <div class="book-row" id="row-prog"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2 class="section-title">Популярное</h2><a class="see-all" href="search.html?col=popular">Смотреть все →</a></div>
+        <div class="book-row" id="row-popular"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2 class="section-title">Короткие книги на вечер</h2><a class="see-all" href="search.html?col=short">Смотреть все →</a></div>
+        <div class="book-row" id="row-short"></div>
+      </section>
+
+      <section class="picker" id="picker" aria-labelledby="picker-title">
+        <div class="picker-intro">
+          <p class="eyebrow">3 вопроса — 3 книги</p>
+          <h2 id="picker-title">Подбери мне книгу</h2>
+          <p>Не знаешь, что почитать? Ответь на три вопроса, и мы предложим три книги под твоё настроение.</p>
+        </div>
+        <div class="picker-form">
+          <p class="q-label">1. Жанр</p>
+          <div class="q-group" data-q="genre">
+            <button class="q-opt" type="button" data-v="fantasy" aria-pressed="true">Фантастика</button>
+            <button class="q-opt" type="button" data-v="detective" aria-pressed="false">Детектив</button>
+            <button class="q-opt" type="button" data-v="it" aria-pressed="false">IT</button>
+            <button class="q-opt" type="button" data-v="self" aria-pressed="false">Саморазвитие</button>
+            <button class="q-opt" type="button" data-v="kids" aria-pressed="false">Детям</button>
+            <button class="q-opt" type="button" data-v="classic" aria-pressed="false">Классика</button>
+          </div>
+          <p class="q-label">2. Сколько времени</p>
+          <div class="q-group" data-q="time">
+            <button class="q-opt" type="button" data-v="evening" aria-pressed="false">Один вечер</button>
+            <button class="q-opt" type="button" data-v="week" aria-pressed="true">Неделя</button>
+            <button class="q-opt" type="button" data-v="month" aria-pressed="false">Месяц и больше</button>
+          </div>
+          <p class="q-label">3. Настроение</p>
+          <div class="q-group" data-q="mood">
+            <button class="q-opt" type="button" data-v="light" aria-pressed="false">Лёгкое</button>
+            <button class="q-opt" type="button" data-v="think" aria-pressed="true">Подумать</button>
+            <button class="q-opt" type="button" data-v="inspire" aria-pressed="false">Вдохновиться</button>
+          </div>
+          <button class="btn btn-yellow btn-sm" type="button" id="picker-go">Показать 3 книги</button>
+        </div>
+        <div class="picker-result" id="picker-result" aria-live="polite"></div>
+      </section>
+
+      <section class="promos">
+        <div class="promo promo--it">
+          <p class="eyebrow">Отдельный раздел</p>
+          <h2>IT и геймдев</h2>
+          <p>Программирование, алгоритмы, разработка игр и подборка «Книги для Roblox-разработчиков».</p>
+          <a class="btn btn-blue btn-sm" href="search.html?col=itgd">Открыть раздел</a>
+        </div>
+        <div class="promo promo--free">
+          <p class="eyebrow">Режим «Бесплатно»</p>
+          <h2>Читай легально и бесплатно</h2>
+          <p>Только классика и издания в открытом доступе — с кнопкой «Скачать» из проверенных источников.</p>
+          <a class="btn btn-green btn-sm" href="search.html?access=free">Показать бесплатные</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2 class="section-title">Как это работает</h2></div>
+        <div class="steps">
+          <div class="step"><div class="step-num">01</div><h3>Введи запрос</h3><p>Название, автора или просто тему: «книга про алгоритмы».</p></div>
+          <div class="step"><div class="step-num">02</div><h3>Выбери книгу</h3><p>Ищем по названию, автору, описанию и содержанию.</p></div>
+          <div class="step"><div class="step-num">03</div><h3>Изучи содержание</h3><p>Описание, главы и «что узнаешь» — до покупки.</p></div>
+          <div class="step"><div class="step-num">04</div><h3>Перейди в магазин</h3><p>Литрес, Meloman, Marwin — одним кликом.</p></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
